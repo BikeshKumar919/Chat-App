@@ -7,10 +7,17 @@ export const login = async (req, res) => {
     const user = await User.findOne({username});
     const hpassword=await bcrypt.compare(password,user?.password||"");
     if(!user || !hpassword){
-      return res.status(400).json({message: "Invalid credentials"});
+      return res.status(400).json({error: "Invalid credentials"});
     }
     generateToken(user._id,res);
-    res.status(200).json({message: "Login successful",id:user._id});
+    res.status(200).json(
+     {
+       _id: user._id,
+			fullname: user.fullname,
+			username: user.username,
+			profilePic: user.profilePic,
+    }
+    );
   }
   catch (error) {
     console.log(error);

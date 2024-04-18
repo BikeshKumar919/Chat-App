@@ -5,13 +5,14 @@ import router from './routes/auth.routes.js';
 import connectToDb from './db/connectTodb.js';
 import userrouter from './routes/user.routes.js';
 import msgrouter from './routes/message.routes.js';
+import {app,server} from './socket/socket.js';
 dotenv.config();
 
 const port = process.env.PORT;
-const app = express();
+//const app = express();
 
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log('Server is running on port', port);
   connectToDb();
 });
